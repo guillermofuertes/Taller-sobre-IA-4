@@ -111,9 +111,9 @@ elif pagina == "demo_que_ve":
 
     placeholder = st.empty()
 
-    placeholder.markdown("# 🐱 gato")
+    placeholder.markdown("#  gato")
     time.sleep(1.5)
-    placeholder.markdown("# 🔢 [0.21, -0.34, 0.88, ...]")
+    placeholder.markdown("#  [0.21, -0.34, 0.88, ...]")
 
 # -------------------------
 # TOKENIZER
