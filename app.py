@@ -163,29 +163,42 @@ elif pagina == "datos":
 # -------------------------
 # EMBEDDINGS MANUALES
 # -------------------------
-elif pagina == "manual":
+elif pagina == "Construir embeddings":
 
-    st.markdown("<div class='medium'>Construyendo significado</div>", unsafe_allow_html=True)
+    st.title("Construyendo embeddings")
 
-    dimensiones = ["Animal", "Comible", "Transporte"]
-    palabras = ["Gato", "Manzana", "Coche"]
+    dimensiones = [
+        "Tiene cola", "Es animal", "Es comible",
+        "Es fruta", "Es felino", "Transporte", "Es mascota"
+    ]
+
+    palabras = ["Gato", "Perro", "Tigre", "Manzana", "Autobus"]
 
     df = pd.DataFrame(0.0, index=dimensiones, columns=palabras)
     df_editado = st.data_editor(df)
 
-    if st.button("Generar"):
+    if st.button("Generar embeddings"):
+
+        st.subheader("Vectores:")
+
+        for col in df_editado.columns:
+            vector = df_editado[col].values
+            st.write(f"{col}: {vector}")
+
+        st.subheader("Espacio semántico")
 
         pca = PCA(n_components=2)
         reduced = pca.fit_transform(df_editado.T)
 
         fig, ax = plt.subplots()
+        placeholder = st.empty()
 
         for i, palabra in enumerate(df_editado.columns):
             x, y = reduced[i]
             ax.scatter(x, y)
             ax.text(x, y, palabra)
-
-        st.pyplot(fig)
+            placeholder.pyplot(fig)
+            time.sleep(0.7)
 
 # -------------------------
 # EMBEDDINGS REALES
