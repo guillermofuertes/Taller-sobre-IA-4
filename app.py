@@ -163,7 +163,7 @@ elif pagina == "datos":
 # -------------------------
 # EMBEDDINGS MANUALES
 # -------------------------
-elif pagina == "manual":
+elif pagina == "manuales":
 
     st.title("Construyendo embeddings")
 
