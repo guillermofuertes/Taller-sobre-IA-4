@@ -205,16 +205,43 @@ elif pagina == "manual":
 # -------------------------
 elif pagina == "reales":
 
-    st.markdown("<div class='medium'>Embeddings reales</div>", unsafe_allow_html=True)
+    st.title("Embeddings reales")
 
     texto = st.text_input("Palabras", "gato, perro, coche")
     words = [w.strip() for w in texto.split(",")]
 
     embeddings = model.encode(words)
 
+    st.subheader("Vectores:")
+
     for word, emb in zip(words, embeddings):
-        vector = [float(f"{x:.3f}") for x in emb[:8]]
+        vector = [float(f"{x:.3f}") for x in emb[:10]]
         st.write(f"{word}: {vector}")
+
+    st.subheader("Similitudes")
+
+    col1, col2 = st.columns(2)
+
+    sim_data = []
+
+    with col1:
+        for i in range(len(words)):
+            for j in range(i+1, len(words)):
+                sim = cosine_similarity([embeddings[i]], [embeddings[j]])[0][0]
+                label = f"{words[i]} vs {words[j]}"
+                st.write(f"{label}: {sim:.2f}")
+                sim_data.append((label, sim))
+
+    with col2:
+        if sim_data:
+            labels = [x[0] for x in sim_data]
+            values = [x[1] for x in sim_data]
+
+            fig, ax = plt.subplots()
+            ax.barh(labels, values)
+            ax.set_xlim(0, 1)
+
+            st.pyplot(fig)
 
 # -------------------------
 # PARECE QUE PIENSA
