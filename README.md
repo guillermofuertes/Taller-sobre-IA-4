@@ -1,4 +1,4 @@
-# 🧠 Taller IA - Embeddings
+#  Taller IA - Embeddings
 
 App interactiva tipo presentación para explicar cómo funciona la IA.
 
